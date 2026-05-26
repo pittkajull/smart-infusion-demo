@@ -85,12 +85,24 @@ export default function Recap({ auth, infusion, logs, allInfusions = [] }) {
                     <Link href="/dashboard" className="flex items-center gap-2 text-slate-500 hover:text-emerald-600 font-bold text-xs uppercase tracking-widest transition-all group">
                         <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Kembali ke Dashboard
                     </Link>
-                    <button
-                        onClick={exportToCSV}
-                        className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center gap-2 shadow-lg shadow-emerald-500/20 active:scale-95 transition-all"
-                    >
-                        <Download size={14} /> Ekspor Data CSV
-                    </button>
+                    <div className="flex gap-3">
+                        <button
+                            onClick={() => {
+                                if (confirm(`Ganti infus untuk ${infusion.patient_name}? Infus lama akan ditandai selesai.`)) {
+                                    router.post(`/infusions/${infusion.id}/ganti`);
+                                }
+                            }}
+                            className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center gap-2 shadow-lg shadow-amber-500/20 active:scale-95 transition-all"
+                        >
+                            <RefreshCw size={14} /> Ganti Infus
+                        </button>
+                        <button
+                            onClick={exportToCSV}
+                            className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center gap-2 shadow-lg shadow-emerald-500/20 active:scale-95 transition-all"
+                        >
+                            <Download size={14} /> Ekspor Data CSV
+                        </button>
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
